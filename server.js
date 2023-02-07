@@ -1,9 +1,14 @@
 const express = require('express');
 // Run npm install mongodb and require mongodb and MongoClient class
 const mongodb = require('mongodb').MongoClient;
+const db = require('./config/connection');
 
 const app = express();
-const port = 3001;
+const PORT = process.env.PORT || 3001;
+
+// Built in Express function that parses incoming requests to JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Connection string to local instance of MongoDB including database name
 const connectionStringURI = `mongodb://127.0.0.1:27017/inventoryDB`;
@@ -26,6 +31,3 @@ mongodb.connect(
   }
 );
 
-// Built in Express function that parses incoming requests to JSON
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
